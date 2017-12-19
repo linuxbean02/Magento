@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+
+/**
+*  General template for displaying group of blocks devided into sections
+*/
+
+$group = $block->getGroupName();
+$groupCss = $block->getGroupCss();
+$groupBehavior = $block->getGroupBehaviour() ? $block->getGroupBehaviour() : '{"tabs":{"openedState":"active"}}';
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames($group, 'getChildHtml')):?>
+    <div class="sections">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="section-items <?= /* @escapeNotVerified */ $groupCss ?>-items" data-mage-init='<?= /* @escapeNotVerified */ $groupBehavior ?>'>
+
+
+          <nav class="navbar navbar-default ">
+  
+  
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+       
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+
+
+
+
+
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                    $html = $layout->renderElement($name);
+                    if (!trim($html) && ($block->getUseForce() != true)) {
+                        continue;
+                    }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                ?>
+               
+                <?= /* @escapeNotVerified */ $html ?>
+            <?php endforeach;?>
+
+           <ul class="cart">
+            
+           <li><?php echo $block->getChildHtml('authorization-link');?></i> 
+           <li><?php echo $this->getChildHtml('minicart') ?></li>
+          </li>
+          
+           </ul>
+      </div>
+    </div>
+  </nav>
+
+
+        </div>
+     </div>
+<?php endif; ?>

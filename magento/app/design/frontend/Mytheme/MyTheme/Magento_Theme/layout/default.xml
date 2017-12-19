@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+       <!--  <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+        </referenceContainer> -->
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">148</argument>
+                <argument name="logo_img_height" xsi:type="number">43</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="footer">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="report.bugs" remove="true"/>
+        <move element="copyright" destination="before.body.end"/>
+
+        <!-- custom code By rj starts-->
+         <referenceBlock name="header.panel" remove="true" />  
+        <move element="header.panel" destination="header.panel.wrapper"/>
+        
+       <!--  <move element="minicart" destination="catalog.topnav" /> -->
+        <move element="minicart" destination="navigation.sections"/>
+        <!-- <move element="authorization-link" destination="catalog.topnav" /> -->
+        <move element="authorization-link" destination="navigation.sections" /> 
+
+       <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template" name="custom_header" as="custom_header" template="Magento_Theme::html/customheader.phtml"  before="-"/>
+        </referenceContainer>
+        
+ 
+        <move element="top.search" destination="custom_header"/>
+        <move element="logo" as="logo" destination="custom_header"/>
+
+
+        <referenceBlock name="privacy-policy-link" remove="true"/>
+        <referenceBlock name="search-term-popular-link" remove="true"/>
+        <referenceBlock name="contact-us-link" remove="true"/>
+        <referenceBlock name="catalog-search-advanced-link" remove="true"/>
+        <referenceBlock name="sales-guest-form-link" remove="true"/>
+
+        <!-- <referenceBlock name="footer_links" remove="true"/> -->
+
+        <!-- <move element="form.subscribe" destination="custom_header" /> -->
+
+       <block class="Magento\Cms\Block\Block" name="block-footer" after="footer_links">
+      <arguments>
+            <argument name="block_id" xsi:type="string">block_footer_custom</argument>
+      </arguments>
+        </block>
+     
+     <!-- <referenceBlock name="footer" remove="true"/> -->
+     <move element="form.subscribe" destination="block-static-block" />
+
+     <reference name="right">
+     <block type="core/template" name="catalog.sidenav" template="page/contact-custom.phtml" before="cart_sidebar"/>
+     </reference>
+    </body>
+</page>
